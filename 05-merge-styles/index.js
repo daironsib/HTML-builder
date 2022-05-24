@@ -4,10 +4,11 @@ const fsPromises = require('fs/promises');
 
 const cssFolder = path.join(__dirname, 'styles');
 const dist = path.join(__dirname, 'project-dist');
-let bundleFile = path.join(dist, 'bundle.css');
+const bundleFile = path.join(dist, 'bundle.css');
 
 (async function compileCss(sources, bundle) {
-  await fsPromises.rm(bundle, { force: true, recursive: true });
+  await fsPromises.rm(dist, { force: true, recursive: true });
+  await fsPromises.mkdir(dist, { recursive: true });
 
   fsPromises.readdir(sources, { withFileTypes: true })
     .then((data) => {
@@ -17,7 +18,7 @@ let bundleFile = path.join(dist, 'bundle.css');
         
         if (file.isFile() && fileExt === 'css') {
           fs.readFile((filePath),(err, data) => {
-            fs.appendFile(bundleFile, data, err => { if (err) throw err; });
+            fs.appendFile(bundle, data, err => { if (err) throw err; });
           })
         }
       })
