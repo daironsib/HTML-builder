@@ -1,11 +1,3 @@
-// const fs = require('fs');
-// const path = require('path');
-// const { stdin, stdout } = process;
-
-// process.stdin.defaultEncoding;
-// process.stdin.setEncoding('utf8');
-// process.stdin.resume();
-
 const fs = require('fs');
 const path = require('path');
 const { stdin, stdout } = process;
