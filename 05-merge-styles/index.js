@@ -7,8 +7,7 @@ const dist = path.join(__dirname, 'project-dist');
 const bundleFile = path.join(dist, 'bundle.css');
 
 (async function compileCss(sources, bundle) {
-  await fsPromises.rm(dist, { force: true, recursive: true });
-  await fsPromises.mkdir(dist, { recursive: true });
+  fs.unlink(bundleFile, () => {});
 
   fsPromises.readdir(sources, { withFileTypes: true })
     .then((data) => {
@@ -19,8 +18,8 @@ const bundleFile = path.join(dist, 'bundle.css');
         if (file.isFile() && fileExt === 'css') {
           fs.readFile((filePath),(err, data) => {
             fs.appendFile(bundle, data, err => { if (err) throw err; });
-          })
+          });
         }
-      })
-    })
+      });
+    });
 })(cssFolder, bundleFile);
